@@ -1,0 +1,332 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --rose:#C4867A;--rose-lt:#E8C5BE;--rose-pale:#F5EAE7;
+    --ivory:#FAF7F3;--ivory-dk:#F0EBE5;
+    --ink:#2C2420;--ink-mid:#5A4A44;--ink-muted:#9A8680;
+    --serif:'Cormorant Garamond',serif;--sans:'Jost',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--ivory);font-family:var(--sans);color:var(--ink)}
+  nav{background:var(--ivory);border-bottom:0.5px solid var(--rose-lt);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+  .nav-name{font-family:var(--serif);font-size:18px;font-weight:400;letter-spacing:0.04em;color:var(--ink)}
+  .nav-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+  .nav-links a{font-size:11px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--rose)}
+  section{padding:5rem 2rem}
+  .container{max-width:660px;margin:0 auto}
+  .hero{background:var(--ivory-dk);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
+  .daisy-wrap{position:absolute;pointer-events:none}
+  .hero-initials{width:72px;height:72px;border-radius:50%;background:var(--rose-pale);border:1px solid var(--rose-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--serif);font-size:22px;font-weight:300;color:var(--rose);position:relative;z-index:1}
+  .hero h1{font-family:var(--serif);font-size:42px;font-weight:300;letter-spacing:0.04em;color:var(--ink);line-height:1.15;margin-bottom:0.5rem;position:relative;z-index:1}
+  .hero-title{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:1.5rem;font-weight:400;position:relative;z-index:1}
+  .hero-bio{font-size:15px;line-height:1.8;color:var(--ink-mid);max-width:500px;margin:0 auto 2rem;font-weight:300;position:relative;z-index:1}
+  .hero-contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;position:relative;z-index:1}
+  .contact-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-mid);border:0.5px solid var(--rose-lt);border-radius:20px;padding:5px 14px;letter-spacing:0.04em;background:var(--ivory);text-decoration:none;cursor:pointer;transition:background 0.18s,border-color 0.18s}
+  .contact-pill:hover{background:var(--rose-lt);border-color:var(--rose);color:var(--ink)}
+  .contact-pill i{font-size:14px;color:var(--rose)}
+  .section-label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.6rem}
+  .section-title{font-family:var(--serif);font-size:30px;font-weight:300;color:var(--ink);margin-bottom:0.5rem}
+  .section-rule{width:40px;height:1px;background:var(--rose-lt);margin-bottom:2.5rem}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+  .about-card{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:8px;padding:1.25rem}
+  .about-card-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);margin-bottom:0.4rem;font-weight:500}
+  .about-card-val{font-size:14px;color:var(--ink-mid);line-height:1.6;font-weight:300}
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .skill-group{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:8px;padding:1.25rem}
+  .skill-group-title{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.75rem}
+  .skill-tag{display:inline-block;font-size:12px;color:var(--ink-mid);background:var(--rose-pale);border-radius:4px;padding:3px 9px;margin:3px 3px 3px 0;font-weight:300}
+  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+  .project-card{background:var(--ivory);border:0.5px solid var(--rose-lt);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+  .project-preview{height:90px;background:var(--ivory-dk);display:flex;align-items:center;justify-content:center;border-bottom:0.5px solid var(--rose-lt);position:relative}
+  .project-preview i{font-size:28px;color:var(--rose-lt)}
+  .project-domain{position:absolute;bottom:8px;left:12px;font-size:10px;letter-spacing:0.1em;color:var(--rose);font-weight:500;text-transform:uppercase}
+  .project-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:6px}
+  .project-name{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--ink)}
+  .project-desc{font-size:13px;color:var(--ink-mid);line-height:1.6;font-weight:300;flex:1}
+  .project-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+  .project-tag{font-size:11px;color:var(--rose);background:var(--rose-pale);border-radius:3px;padding:2px 7px;font-weight:400}
+  .project-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--rose);text-decoration:none;margin-top:8px;letter-spacing:0.06em;font-weight:500;text-transform:uppercase}
+  .project-link i{font-size:13px}
+  .project-link:hover{color:var(--ink)}
+  .timeline{position:relative;padding-left:1.5rem;border-left:1px solid var(--rose-lt)}
+  .job{margin-bottom:2.5rem;position:relative}
+  .job-dot{position:absolute;left:-1.85rem;top:4px;width:8px;height:8px;border-radius:50%;background:var(--rose);border:2px solid var(--ivory)}
+  .job-period{font-size:11px;letter-spacing:0.1em;color:var(--rose);font-weight:500;margin-bottom:0.3rem;text-transform:uppercase}
+  .job-role{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--ink);margin-bottom:0.1rem}
+  .job-company{font-size:13px;color:var(--ink-mid);font-weight:300;margin-bottom:0.75rem}
+  .job-bullets{list-style:none;padding:0}
+  .job-bullets li{font-size:14px;color:var(--ink-mid);line-height:1.7;font-weight:300;padding-left:1rem;position:relative;margin-bottom:0.3rem}
+  .job-bullets li::before{content:"–";position:absolute;left:0;color:var(--rose-lt)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+  .contact-card{background:var(--ivory);border:0.5px solid var(--rose-lt);border-radius:8px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px}
+  .contact-icon{width:36px;height:36px;border-radius:50%;background:var(--rose-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .contact-icon i{font-size:16px;color:var(--rose)}
+  .contact-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:3px}
+  .contact-val{font-size:13px;color:var(--ink-mid);font-weight:300;word-break:break-all}
+  .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+  .ref-card{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:8px;padding:1.25rem}
+  .ref-name{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--ink);margin-bottom:3px}
+  .ref-role{font-size:12px;color:var(--rose);font-weight:400;margin-bottom:6px;letter-spacing:0.03em}
+  .ref-contact{font-size:12px;color:var(--ink-muted);font-weight:300;line-height:1.6}
+  footer{background:var(--ink);padding:2rem;text-align:center;position:relative;overflow:hidden}
+  footer p{font-size:12px;color:#9A8680;letter-spacing:0.08em;font-weight:300;position:relative;z-index:1}
+  footer span{color:var(--rose)}
+  .section-daisy{position:relative;overflow:hidden}
+  .section-daisy-svg{position:absolute;opacity:0.55;pointer-events:none}
+
+  /* ═══════════════════════════════════════════════════════
+     KEYFRAMES
+     ═══════════════════════════════════════════════════════ */
+  @keyframes d-float   { 0%,100%{transform:translateY(0) rotate(0deg)}  50%{transform:translateY(-13px) rotate(4deg)}  }
+  @keyframes d-float-r { 0%,100%{transform:translateY(0) rotate(0deg)}  50%{transform:translateY(-10px) rotate(-4deg)} }
+  @keyframes d-sway    { 0%,100%{transform:rotate(-6deg) scale(1)}       50%{transform:rotate(6deg)  scale(1.05)}       }
+  @keyframes fade-up   { from{opacity:0;transform:translateY(28px)}      to{opacity:1;transform:translateY(0)}           }
+  @keyframes scale-in  { from{opacity:0;transform:scale(0.86)}           to{opacity:1;transform:scale(1)}                }
+  @keyframes initials-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  @keyframes dot-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(196,134,122,0.55)} 55%{box-shadow:0 0 0 8px rgba(196,134,122,0)} }
+
+  /* ── Daisy container float & sway ──────────────────────── */
+  .daisy-wrap        { animation: d-float 7s ease-in-out infinite; }
+  .section-daisy-svg { animation: d-sway  6s ease-in-out infinite; }
+  footer svg         { animation: d-float 9s ease-in-out infinite; }
+
+  /* ── Hero entrance ─────────────────────────────────────── */
+  .hero-initials { animation: scale-in 0.65s cubic-bezier(.34,1.56,.64,1) 0.15s both,
+                               initials-bob 3.5s ease-in-out 1.5s infinite; }
+  .hero h1       { animation: fade-up 0.7s ease 0.30s both; }
+  .hero-title    { animation: fade-up 0.7s ease 0.46s both; }
+  .hero-bio      { animation: fade-up 0.7s ease 0.62s both; }
+  .hero-contacts { animation: fade-up 0.7s ease 0.78s both; }
+
+  /* ── Scroll reveal ─────────────────────────────────────── */
+  .reveal         { opacity:0; transform:translateY(22px); transition:opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── Nav underline grow ────────────────────────────────── */
+  .nav-links a { position:relative; }
+  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--rose); transition:width 0.25s ease; }
+  .nav-links a:hover::after { width:100%; }
+
+  /* ── Skill tags bounce ─────────────────────────────────── */
+  .skill-tag { display:inline-block; transition:transform 0.15s ease, background 0.15s ease; }
+  .skill-tag:hover { transform:scale(1.11) translateY(-2px); background:var(--rose-lt); }
+
+  /* ── Card hover lift ───────────────────────────────────── */
+  .project-card { transition:transform 0.22s ease, box-shadow 0.22s ease; }
+  .project-card:hover { transform:translateY(-6px); box-shadow:0 14px 36px rgba(196,134,122,0.22); }
+  .about-card   { transition:transform 0.2s ease, border-color 0.2s ease; }
+  .about-card:hover { transform:translateY(-3px); border-color:var(--rose); }
+  .ref-card     { transition:transform 0.2s ease, border-color 0.2s ease; }
+  .ref-card:hover { transform:translateY(-3px); border-color:var(--rose); }
+  .contact-card { transition:transform 0.2s ease, box-shadow 0.2s ease; }
+  .contact-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(196,134,122,0.18); }
+
+  /* ── Timeline dot pulse ────────────────────────────────── */
+  .job-dot { animation: dot-pulse 2.5s ease-in-out infinite; }
+
+  /* ── Respect reduced-motion preference ─────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+</style>
+
+<nav>
+  <span class="nav-name">Yasmin Mwadi</span>
+  <div class="nav-links">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <svg class="daisy-wrap" style="top:0;left:0;width:160px;height:160px" viewBox="0 0 160 160">
+    <g transform="translate(30,130)"><g transform="rotate(0)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><circle r="7" fill="#F5C8A0"/></g>
+    <g transform="translate(62,108)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><circle r="5" fill="#EAB070"/></g>
+    <g transform="translate(14,80)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(51.4)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(102.8)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(154.2)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(205.7)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(257.1)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(308.5)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><circle r="4" fill="#F5C8A0"/></g>
+  </svg>
+  <svg class="daisy-wrap" style="top:0;right:0;width:160px;height:160px" viewBox="0 0 160 160">
+    <g transform="translate(130,130)"><g transform="rotate(0)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><circle r="7" fill="#F5C8A0"/></g>
+    <g transform="translate(98,108)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><circle r="5" fill="#EAB070"/></g>
+    <g transform="translate(146,80)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(51.4)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(102.8)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(154.2)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(205.7)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(257.1)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(308.5)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><circle r="4" fill="#F5C8A0"/></g>
+  </svg>
+  <div class="hero-initials">YM</div>
+  <h1>Yasmin Mwadi</h1>
+  <p class="hero-title">Web &amp; Software Developer &nbsp;·&nbsp; Database &amp; Digital Specialist</p>
+  <p class="hero-bio">A detail-driven developer with 5+ years of experience crafting full-stack applications, digital strategies, and data solutions. Analytical. Precise. Passionate about building things that work beautifully.</p>
+  <div class="hero-contacts">
+    <a href="mailto:ndokoyasmine@gmail.com" class="contact-pill"><i class="ti ti-mail" aria-hidden="true"></i>ndokoyasmine@gmail.com</a>
+    <a href="tel:+27837792005" class="contact-pill"><i class="ti ti-phone" aria-hidden="true"></i>+27 83 779 2005</a>
+    <a href="https://maps.google.com/?q=Pretoria,+South+Africa" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-map-pin" aria-hidden="true"></i>Pretoria, SA</a>
+    <a href="https://www.linkedin.com/in/yasminmwadi" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>yasminmwadi</a>
+    <a href="https://github.com/YasminMwadi" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-brand-github" aria-hidden="true"></i>YasminMwadi</a>
+  </div>
+</div>
+
+<section id="about" class="section-daisy">
+  <svg class="section-daisy-svg" style="right:0;top:20px;width:100px;height:100px" viewBox="0 0 100 100">
+    <g transform="translate(80,20)"><g transform="rotate(0)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(40)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(80)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(120)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(160)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(200)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(240)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(280)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(320)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><circle r="5" fill="#F5C8A0"/></g>
+  </svg>
+  <div class="container">
+    <p class="section-label">Who I am</p>
+    <h2 class="section-title">About me</h2>
+    <div class="section-rule"></div>
+    <p style="font-size:15px;color:var(--ink-mid);line-height:1.85;font-weight:300;margin-bottom:1.5rem">I build things that work beautifully — from database architectures to corporate websites to digital content strategies. My background spans software development, database administration, web development, and digital marketing, giving me a rare full-picture perspective on how technology and communication intersect.</p>
+    <div class="about-grid">
+      <div class="about-card"><p class="about-card-label">Education</p><p class="about-card-val">Adv. Diploma, Computer Science<br>National Diploma, Software Development<br><em style="font-size:12px">Tshwane University of Technology</em></p></div>
+      <div class="about-card"><p class="about-card-label">Languages</p><p class="about-card-val">English — Fluent<br>French — Fluent</p></div>
+      <div class="about-card"><p class="about-card-label">Based in</p><p class="about-card-val">Pretoria, Gauteng<br>South Africa<br><em style="font-size:12px">Open to remote &amp; relocation</em></p></div>
+      <div class="about-card"><p class="about-card-label">Core strengths</p><p class="about-card-val">Agile / SDLC &nbsp;·&nbsp; Problem solving<br>Team collaboration<br>Data security &amp; compliance</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--ivory-dk)" class="section-daisy">
+  <svg class="section-daisy-svg" style="left:0;bottom:10px;width:90px;height:90px" viewBox="0 0 90 90">
+    <g transform="translate(10,70)"><g transform="rotate(0)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><circle r="4" fill="#EAB070"/></g>
+  </svg>
+  <div class="container">
+    <p class="section-label">What I know</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-rule"></div>
+    <div class="skills-grid">
+      <div class="skill-group"><p class="skill-group-title">Languages</p><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">PHP</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PL/SQL</span><span class="skill-tag">Java</span></div>
+      <div class="skill-group"><p class="skill-group-title">Frameworks</p><span class="skill-tag">Angular</span><span class="skill-tag">Node.js</span><span class="skill-tag">Laravel</span><span class="skill-tag">Django</span><span class="skill-tag">Ionic</span></div>
+      <div class="skill-group"><p class="skill-group-title">Databases &amp; Cloud</p><span class="skill-tag">MySQL</span><span class="skill-tag">Firebase</span><span class="skill-tag">SQL Server</span><span class="skill-tag">Azure</span><span class="skill-tag">AWS</span><span class="skill-tag">GitHub</span></div>
+      <div class="skill-group"><p class="skill-group-title">Analytics &amp; Digital</p><span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span><span class="skill-tag">SEO</span><span class="skill-tag">WordPress</span><span class="skill-tag">RESTful APIs</span><span class="skill-tag">Social strategy</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section-daisy">
+  <svg class="section-daisy-svg" style="right:0;top:30px;width:110px;height:110px" viewBox="0 0 110 110">
+    <g transform="translate(90,25)"><g transform="rotate(0)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><circle r="6" fill="#F5C8A0"/></g>
+    <g transform="translate(65,65)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><circle r="4" fill="#EAB070"/></g>
+  </svg>
+  <div class="container">
+    <p class="section-label">What I have built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-rule"></div>
+    <div class="projects-grid">
+      <div class="project-card"><div class="project-preview"><i class="ti ti-building-skyscraper" aria-hidden="true"></i><span class="project-domain">geluxsarl.com</span></div><div class="project-body"><p class="project-name">Gelux SARL</p><p class="project-desc">Corporate website built end-to-end — SEO optimisation, content strategy, and digital presence management.</p><div class="project-tags"><span class="project-tag">WordPress</span><span class="project-tag">SEO</span><span class="project-tag">CMS</span></div><a class="project-link" href="https://geluxsarl.com" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+      <div class="project-card"><div class="project-preview"><i class="ti ti-cake" aria-hidden="true"></i><span class="project-domain">cakebyamz.co.za</span></div><div class="project-body"><p class="project-name">Cake by Amz</p><p class="project-desc">Elegant e-commerce website for a bespoke cake brand — visual-first design with seamless customer enquiries.</p><div class="project-tags"><span class="project-tag">E-commerce</span><span class="project-tag">WordPress</span><span class="project-tag">UX</span></div><a class="project-link" href="https://cakebyamz.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+      <div class="project-card"><div class="project-preview"><i class="ti ti-trophy" aria-hidden="true"></i><span class="project-domain">ttsport.co.za</span></div><div class="project-body"><p class="project-name">TT Sport</p><p class="project-desc">Sports brand website with product listings and optimised performance for mobile and desktop.</p><div class="project-tags"><span class="project-tag">Web Dev</span><span class="project-tag">Responsive</span><span class="project-tag">SEO</span></div><a class="project-link" href="https://ttsport.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+      <div class="project-card"><div class="project-preview"><i class="ti ti-home-2" aria-hidden="true"></i><span class="project-domain">splitnest.com</span></div><div class="project-body"><p class="project-name">SplitNest</p><p class="project-desc">Shared living platform connecting people looking for rooms and housemates with smart listing features.</p><div class="project-tags"><span class="project-tag">Angular</span><span class="project-tag">Node.js</span><span class="project-tag">UX</span></div><a class="project-link" href="https://splitnest.com" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+      <div class="project-card"><div class="project-preview"><i class="ti ti-sofa" aria-hidden="true"></i><span class="project-domain">lavehome.co.za</span></div><div class="project-body"><p class="project-name">Lave Home</p><p class="project-desc">Home décor brand site with elegant visuals and a smooth shopping experience for design-conscious audiences.</p><div class="project-tags"><span class="project-tag">E-commerce</span><span class="project-tag">WordPress</span><span class="project-tag">Design</span></div><a class="project-link" href="https://lavehome.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+      <div class="project-card"><div class="project-preview"><i class="ti ti-exchange" aria-hidden="true"></i><span class="project-domain">izozo.co.za</span></div><div class="project-body"><p class="project-name">Izozo</p><p class="project-desc">Comparison and marketplace platform enabling users to browse and connect with service providers.</p><div class="project-tags"><span class="project-tag">Platform</span><span class="project-tag">PHP</span><span class="project-tag">MySQL</span></div><a class="project-link" href="https://izozo.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="background:var(--ivory-dk)">
+  <div class="container">
+    <p class="section-label">What I have done</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-rule"></div>
+    <div class="timeline">
+      <div class="job"><div class="job-dot"></div><p class="job-period">Sep 2024 – Present</p><p class="job-role">Webmaster &amp; Digital Content Specialist</p><p class="job-company">Gelux SARL &nbsp;·&nbsp; Lubumbashi, DRC</p><ul class="job-bullets"><li>Led end-to-end development and management of corporate website</li><li>Built company digital presence across social platforms from scratch</li><li>Executed content strategy — blog &amp; social — growing audience engagement</li><li>Optimised for SEO and UX, improving rankings and site performance</li><li>Produced strategic reports from web and social analytics</li></ul></div>
+      <div class="job"><div class="job-dot"></div><p class="job-period">Jan 2024 – Dec 2024</p><p class="job-role">Database Administrator</p><p class="job-company">MG Optimal Systems &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Administered production databases maintaining high availability</li><li>Designed schemas and data models for evolving application requirements</li><li>Improved query performance through index tuning and health monitoring</li></ul></div>
+      <div class="job"><div class="job-dot"></div><p class="job-period">Jul 2022 – Jul 2023</p><p class="job-role">Web Developer</p><p class="job-company">BMB Studio &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Built data-driven applications using PHP, MySQL, and JavaScript</li><li>Integrated and maintained RESTful APIs</li><li>Delivered Power BI dashboards for business decision support</li></ul></div>
+      <div class="job"><div class="job-dot"></div><p class="job-period">Jan 2022 – Jun 2022</p><p class="job-role">Software Developer</p><p class="job-company">Junixia &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Developed database structures using SQL, Java, and Python</li><li>Contributed to data analytics and insights extraction</li></ul></div>
+      <div class="job"><div class="job-dot"></div><p class="job-period">Feb 2021 – Dec 2021</p><p class="job-role">Web &amp; Software Developer</p><p class="job-company">Spiral8 Studio &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Designed Power BI &amp; MySQL dashboards for real-time BI</li><li>Built and optimised large-scale database solutions</li><li>Collaborated cross-functionally on system efficiency improvements</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--ivory)" class="section-daisy">
+  <svg class="section-daisy-svg" style="left:0;top:20px;width:90px;height:90px" viewBox="0 0 90 90">
+    <g transform="translate(10,50)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(40)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(80)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(120)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(160)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(200)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(240)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(280)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(320)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><circle r="5" fill="#F5C8A0"/></g>
+  </svg>
+  <div class="container">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-rule"></div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="contact-icon"><i class="ti ti-mail" aria-hidden="true"></i></div><div><p class="contact-label">Email</p><p class="contact-val">ndokoyasmine@gmail.com</p></div></div>
+      <div class="contact-card"><div class="contact-icon"><i class="ti ti-phone" aria-hidden="true"></i></div><div><p class="contact-label">Phone</p><p class="contact-val">+27 83 779 2005</p></div></div>
+      <div class="contact-card"><div class="contact-icon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div><div><p class="contact-label">LinkedIn</p><p class="contact-val">linkedin.com/in/yasminmwadi</p></div></div>
+      <div class="contact-card"><div class="contact-icon"><i class="ti ti-brand-github" aria-hidden="true"></i></div><div><p class="contact-label">GitHub</p><p class="contact-val">github.com/YasminMwadi</p></div></div>
+    </div>
+    <p class="section-label" style="margin-top:3rem">References</p>
+    <div class="section-rule" style="margin-top:0.6rem"></div>
+    <div class="ref-grid">
+      <div class="ref-card"><p class="ref-name">Rene Monzambe</p><p class="ref-role">Chairman — GELUX SARL</p><p class="ref-contact">+243 81 444 0117<br>rene.monzambe@gelux.cd</p></div>
+      <div class="ref-card"><p class="ref-name">Lindikhaya N. Mabena</p><p class="ref-role">Managing Director — Spiral8 Studio</p><p class="ref-contact">+27 71 269 9640<br>info@spiral8studio.co.za</p></div>
+      <div class="ref-card"><p class="ref-name">Jean Nestor M. Dahj</p><p class="ref-role">Technical Director — Junixia</p><p class="ref-contact">+27 71 387 6255<br>info@junixia.com</p></div>
+      <div class="ref-card"><p class="ref-name">Benny Mala</p><p class="ref-role">Managing Director — BMBStudio</p><p class="ref-contact">+27 12 343 0908<br>info@bmbstudio.co.za</p></div>
+      <div class="ref-card"><p class="ref-name">Giovanni Monzambe</p><p class="ref-role">Managing Director — MG Optimal Systems</p><p class="ref-contact">+27 81 574 9975<br>info@mg-optimalsystems.co.za</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg style="position:absolute;left:10px;bottom:5px;width:60px;height:60px;opacity:0.3" viewBox="0 0 60 60">
+    <g transform="translate(15,45)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><circle r="4" fill="#F5C8A0"/></g>
+  </svg>
+  <svg style="position:absolute;right:10px;bottom:5px;width:60px;height:60px;opacity:0.3" viewBox="0 0 60 60">
+    <g transform="translate(45,45)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><circle r="4" fill="#F5C8A0"/></g>
+  </svg>
+  <p>Yasmin Mwadi &nbsp;<span>·</span>&nbsp; Web &amp; Software Developer &nbsp;<span>·</span>&nbsp; Pretoria, SA</p>
+</footer>
+
+<script>
+  /* ── 1. Spin every daisy flower with SVG animateTransform ──────────
+     additive="sum" stacks on top of the existing translate() so the
+     flowers stay in position while rotating around their own centre.  */
+  const DURS = [13, 9, 6, 15, 10, 8, 12, 7];
+  document.querySelectorAll(
+    '.daisy-wrap g[transform^="translate"], ' +
+    '.section-daisy-svg g[transform^="translate"], ' +
+    'footer svg g[transform^="translate"]'
+  ).forEach((g, i) => {
+    const a = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
+    a.setAttribute('attributeName', 'transform');
+    a.setAttribute('attributeType', 'XML');
+    a.setAttribute('type', 'rotate');
+    a.setAttribute('from', '0');
+    a.setAttribute('to',   i % 3 === 1 ? '-360' : '360');   // alternate direction
+    a.setAttribute('dur',  DURS[i % DURS.length] + 's');
+    a.setAttribute('repeatCount', 'indefinite');
+    a.setAttribute('additive', 'sum');
+    g.appendChild(a);
+  });
+
+  /* ── 2. Offset the float animations so daisies don't move in sync ── */
+  document.querySelectorAll('.daisy-wrap').forEach((el, i) => {
+    el.style.animationDelay = (i * -3.2) + 's';
+    if (i % 2 === 1) el.style.animationName = 'd-float-r';
+  });
+  document.querySelectorAll('.section-daisy-svg').forEach((el, i) => {
+    el.style.animationDelay = (i * -2.1) + 's';
+    if (i % 2 === 1) { el.style.animationName = 'd-float-r'; el.style.animationDuration = '7s'; }
+  });
+  document.querySelectorAll('footer svg').forEach((el, i) => {
+    el.style.animationDelay = (i * -4.5) + 's';
+    if (i % 2 === 1) el.style.animationName = 'd-float-r';
+  });
+
+  /* ── 3. Scroll-reveal with per-group stagger ───────────────────── */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.10 });
+
+  ['.about-card', '.skill-group', '.project-card', '.contact-card', '.ref-card'].forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i % 4 * 0.10) + 's';
+      ro.observe(el);
+    });
+  });
+  document.querySelectorAll('.job').forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i * 0.09) + 's';
+    ro.observe(el);
+  });
+</script>
