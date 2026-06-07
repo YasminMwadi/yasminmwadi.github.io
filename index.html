@@ -1,383 +1,674 @@
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --rose:#C4867A;--rose-lt:#E8C5BE;--rose-pale:#F5EAE7;
-    --ivory:#FAF7F3;--ivory-dk:#F0EBE5;
-    --ink:#2C2420;--ink-mid:#5A4A44;--ink-muted:#9A8680;
-    --serif:'Cormorant Garamond',serif;--sans:'Jost',sans-serif;
-  }
-  html{scroll-behavior:smooth}
-  body{background:var(--ivory);font-family:var(--sans);color:var(--ink);font-size:17px}
-  nav{background:var(--ivory);border-bottom:0.5px solid var(--rose-lt);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
-  .nav-name{font-family:var(--serif);font-size:21px;font-weight:400;letter-spacing:0.04em;color:var(--ink)}
-  .nav-links{display:flex;gap:1.5rem;flex-wrap:wrap}
-  .nav-links a{font-size:13px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;transition:color 0.2s}
-  .nav-links a:hover{color:var(--rose)}
-  section{padding:5rem 2rem}
-  .container{max-width:700px;margin:0 auto}
-  .hero{background:linear-gradient(150deg,var(--rose-pale) 0%,var(--ivory-dk) 55%,#fdf6f4 100%);padding:5.5rem 2rem 4.5rem;text-align:center;position:relative;overflow:hidden}
-  .daisy-wrap{position:absolute;pointer-events:none}
-  .hero-initials{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--rose-pale),var(--rose-lt));border:2px solid var(--rose);display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;font-family:var(--serif);font-size:27px;font-weight:300;color:var(--rose);position:relative;z-index:1;box-shadow:0 6px 24px rgba(196,134,122,0.28)}
-  .hero h1{font-family:var(--serif);font-size:52px;font-weight:300;letter-spacing:0.04em;color:var(--ink);line-height:1.15;margin-bottom:0.6rem;position:relative;z-index:1}
-  .hero-title{font-size:15px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:1.75rem;font-weight:400;position:relative;z-index:1}
-  .hero-bio{font-size:18px;line-height:1.95;color:var(--ink-mid);max-width:540px;margin:0 auto 2.25rem;font-weight:300;position:relative;z-index:1}
-  .hero-contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem;position:relative;z-index:1}
-  .contact-pill{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink-mid);border:1px solid var(--rose-lt);border-radius:28px;padding:9px 20px;letter-spacing:0.04em;background:rgba(250,247,243,0.9);text-decoration:none;cursor:pointer;transition:background 0.18s,border-color 0.18s}
-  .contact-pill:hover{background:var(--rose-lt);border-color:var(--rose);color:var(--ink)}
-  .contact-pill i{font-size:17px;color:var(--rose)}
-  .section-label{font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.6rem}
-  .section-title{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--ink);margin-bottom:0.5rem}
-  .section-rule{width:44px;height:1px;background:var(--rose-lt);margin-bottom:2.5rem}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
-  .about-card{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:12px;padding:1.6rem}
-  .about-card-label{font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem;font-weight:500}
-  .about-card-val{font-size:16px;color:var(--ink-mid);line-height:1.75;font-weight:300}
-  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .skill-group{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:12px;padding:1.6rem}
-  .skill-group-title{font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.85rem}
-  .skill-tag{display:inline-block;font-size:14px;color:var(--ink-mid);background:var(--rose-pale);border-radius:6px;padding:6px 13px;margin:4px 4px 4px 0;font-weight:300}
-  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-  .project-card{background:var(--ivory);border:0.5px solid var(--rose-lt);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-  .project-preview{height:100px;background:var(--ivory-dk);display:flex;align-items:center;justify-content:center;border-bottom:0.5px solid var(--rose-lt);position:relative}
-  .project-preview i{font-size:32px;color:var(--rose-lt)}
-  .project-domain{position:absolute;bottom:8px;left:14px;font-size:12px;letter-spacing:0.1em;color:var(--rose);font-weight:500;text-transform:uppercase}
-  .project-body{padding:1.25rem;flex:1;display:flex;flex-direction:column;gap:8px}
-  .project-name{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink)}
-  .project-desc{font-size:15px;color:var(--ink-mid);line-height:1.75;font-weight:300;flex:1}
-  .project-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
-  .project-tag{font-size:13px;color:var(--rose);background:var(--rose-pale);border-radius:4px;padding:3px 10px;font-weight:400}
-  .project-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--rose);text-decoration:none;margin-top:8px;letter-spacing:0.06em;font-weight:500;text-transform:uppercase}
-  .project-link i{font-size:14px}
-  .project-link:hover{color:var(--ink)}
-  .timeline{position:relative;padding-left:1.75rem;border-left:1px solid var(--rose-lt)}
-  .job{margin-bottom:2.75rem;position:relative}
-  .job-dot{position:absolute;left:-2.05rem;top:5px;width:10px;height:10px;border-radius:50%;background:var(--rose);border:2px solid var(--ivory)}
-  .job-period{font-size:13px;letter-spacing:0.1em;color:var(--rose);font-weight:500;margin-bottom:0.35rem;text-transform:uppercase}
-  .job-role{font-family:var(--serif);font-size:23px;font-weight:400;color:var(--ink);margin-bottom:0.15rem}
-  .job-company{font-size:15px;color:var(--ink-mid);font-weight:300;margin-bottom:0.9rem}
-  .job-bullets{list-style:none;padding:0}
-  .job-bullets li{font-size:16px;color:var(--ink-mid);line-height:1.85;font-weight:300;padding-left:1.1rem;position:relative;margin-bottom:0.4rem}
-  .job-bullets li::before{content:"–";position:absolute;left:0;color:var(--rose-lt)}
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
-  .contact-card{background:var(--ivory);border:0.5px solid var(--rose-lt);border-radius:12px;padding:1.6rem;display:flex;align-items:flex-start;gap:14px}
-  .contact-icon{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--rose-pale),var(--rose-lt));display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .contact-icon i{font-size:19px;color:var(--rose)}
-  .contact-label{font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:4px}
-  .contact-val{font-size:16px;color:var(--ink-mid);font-weight:300;word-break:break-all;line-height:1.55}
-  .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
-  .ref-card{background:var(--ivory-dk);border:0.5px solid var(--rose-lt);border-radius:12px;padding:1.6rem}
-  .ref-name{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);margin-bottom:4px}
-  .ref-role{font-size:14px;color:var(--rose);font-weight:400;margin-bottom:8px;letter-spacing:0.03em}
-  .ref-contact{font-size:14px;color:var(--ink-muted);font-weight:300;line-height:1.75}
-  footer{background:var(--ink);padding:2.5rem;text-align:center;position:relative;overflow:hidden}
-  footer p{font-size:15px;color:#9A8680;letter-spacing:0.08em;font-weight:300;position:relative;z-index:1}
-  footer span{color:var(--rose)}
-  .section-daisy{position:relative;overflow:hidden}
-  .section-daisy-svg{position:absolute;opacity:0.55;pointer-events:none}
-
-  /* ═══════════════════════════════════════════════════════
-     KEYFRAMES
-     ═══════════════════════════════════════════════════════ */
-  @keyframes d-float   { 0%,100%{transform:translateY(0) rotate(0deg)}  50%{transform:translateY(-13px) rotate(4deg)}  }
-  @keyframes d-float-r { 0%,100%{transform:translateY(0) rotate(0deg)}  50%{transform:translateY(-10px) rotate(-4deg)} }
-  @keyframes d-sway    { 0%,100%{transform:rotate(-6deg) scale(1)}       50%{transform:rotate(6deg)  scale(1.05)}       }
-  @keyframes fade-up   { from{opacity:0;transform:translateY(28px)}      to{opacity:1;transform:translateY(0)}           }
-  @keyframes scale-in  { from{opacity:0;transform:scale(0.86)}           to{opacity:1;transform:scale(1)}                }
-  @keyframes initials-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-  @keyframes dot-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(196,134,122,0.55)} 55%{box-shadow:0 0 0 8px rgba(196,134,122,0)} }
-
-  /* ── Daisy container float & sway ──────────────────────── */
-  .daisy-wrap        { animation: d-float 7s ease-in-out infinite; }
-  .section-daisy-svg { animation: d-sway  6s ease-in-out infinite; }
-  footer svg         { animation: d-float 9s ease-in-out infinite; }
-
-  /* ── Hero entrance ─────────────────────────────────────── */
-  .hero-initials { animation: scale-in 0.65s cubic-bezier(.34,1.56,.64,1) 0.15s both,
-                               initials-bob 3.5s ease-in-out 1.5s infinite; }
-  .hero h1       { animation: fade-up 0.7s ease 0.30s both; }
-  .hero-title    { animation: fade-up 0.7s ease 0.46s both; }
-  .hero-bio      { animation: fade-up 0.7s ease 0.62s both; }
-  .hero-contacts { animation: fade-up 0.7s ease 0.78s both; }
-
-  /* ── Scroll reveal ─────────────────────────────────────── */
-  .reveal         { opacity:0; transform:translateY(22px); transition:opacity 0.55s ease, transform 0.55s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-
-  /* ── Nav underline grow ────────────────────────────────── */
-  .nav-links a { position:relative; }
-  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--rose); transition:width 0.25s ease; }
-  .nav-links a:hover::after { width:100%; }
-
-  /* ── Skill tags bounce ─────────────────────────────────── */
-  .skill-tag { display:inline-block; transition:transform 0.15s ease, background 0.15s ease; }
-  .skill-tag:hover { transform:scale(1.11) translateY(-2px); background:var(--rose-lt); }
-
-  /* ── Card hover lift ───────────────────────────────────── */
-  .project-card { transition:transform 0.22s ease, box-shadow 0.22s ease; }
-  .project-card:hover { transform:translateY(-6px); box-shadow:0 14px 36px rgba(196,134,122,0.22); }
-  .about-card   { transition:transform 0.2s ease, border-color 0.2s ease; }
-  .about-card:hover { transform:translateY(-3px); border-color:var(--rose); }
-  .ref-card     { transition:transform 0.2s ease, border-color 0.2s ease; }
-  .ref-card:hover { transform:translateY(-3px); border-color:var(--rose); }
-  .contact-card { transition:transform 0.2s ease, box-shadow 0.2s ease; }
-  .contact-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(196,134,122,0.18); }
-
-  /* ── Timeline dot pulse ────────────────────────────────── */
-  .job-dot { animation: dot-pulse 2.5s ease-in-out infinite; }
-
-  /* ── Respect reduced-motion preference ─────────────────── */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration:0.01ms !important;
-      animation-iteration-count:1 !important;
-      transition-duration:0.01ms !important;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yasmin Mwadi — Web & Software Developer, Database Specialist, Digital Strategist based in Bryanston, Johannesburg.">
+  <title>Yasmin Mwadi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+  <style>
+    /* ─── RESET & TOKENS ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #FDFAF7;
+      --bg2:     #F5EEE8;
+      --bg3:     #EDE3D9;
+      --rose:    #B87065;
+      --rose2:   #D4988E;
+      --petal:   #EDD5CE;
+      --cream:   #F7EDE5;
+      --ink:     #1E1714;
+      --ink2:    #4A3A35;
+      --ink3:    #8A7268;
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'Jost', system-ui, sans-serif;
     }
-  }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); font-family: var(--sans); color: var(--ink); overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
 
-  /* ═══════════════════════════════════════════════════════
-     RESPONSIVE — TABLET (≤ 768px)
-     ═══════════════════════════════════════════════════════ */
-  @media (max-width: 768px) {
-    nav{padding:0 1.25rem}
-    .nav-links a{font-size:12px;letter-spacing:0.1em}
-    .hero{padding:4.5rem 1.5rem 3.5rem}
-    .hero h1{font-size:44px}
-    .hero-bio{font-size:17px}
-    .about-grid,.skills-grid,.projects-grid,.contact-grid,.ref-grid{grid-template-columns:1fr}
-    section{padding:4rem 1.5rem}
-  }
+    /* ─── NAVIGATION ──────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 68px;
+      background: rgba(253,250,247,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(213,152,142,0.22);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 32px rgba(30,23,20,0.08); }
+    .nav-logo { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: 0.05em; color: var(--ink); }
+    .nav-logo em { color: var(--rose); font-style: italic; }
+    .nav-links { display: flex; gap: 2.25rem; }
+    .nav-links a {
+      font-size: 12px; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink2); transition: color 0.22s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--rose); transition: width 0.24s;
+    }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-links a:hover::after { width: 100%; }
 
-  /* ═══════════════════════════════════════════════════════
-     RESPONSIVE — MOBILE (≤ 520px)
-     ═══════════════════════════════════════════════════════ */
-  @media (max-width: 520px) {
-    nav{height:auto;min-height:60px;flex-wrap:wrap;padding:12px 1rem;gap:10px}
-    .nav-name{font-size:19px}
-    .nav-links{gap:0.65rem}
-    .nav-links a{font-size:12px;letter-spacing:0.07em}
-    section{padding:3rem 1.1rem}
-    .hero{padding:3.5rem 1.1rem 3rem}
-    .hero h1{font-size:36px}
-    .hero-title{font-size:13px;letter-spacing:0.13em}
-    .hero-bio{font-size:16px;line-height:1.9}
-    .hero-initials{width:76px;height:76px;font-size:24px;margin-bottom:1.4rem}
-    .contact-pill{font-size:14px;padding:10px 18px}
-    .contact-pill i{font-size:16px}
-    .section-title{font-size:30px}
-    .section-label{font-size:12px}
-    .about-card{padding:1.35rem}
-    .about-card-val{font-size:16px}
-    .skill-group{padding:1.35rem}
-    .skill-tag{font-size:14px;padding:7px 13px}
-    .project-name{font-size:19px}
-    .project-desc{font-size:15px}
-    .project-body{padding:1.1rem}
-    .job-role{font-size:21px}
-    .job-company{font-size:15px}
-    .job-bullets li{font-size:15px;line-height:1.85}
-    .contact-card{padding:1.35rem}
-    .contact-val{font-size:16px}
-    .ref-card{padding:1.35rem}
-    .ref-name{font-size:19px}
-    .ref-role{font-size:14px}
-    .ref-contact{font-size:14px}
-    .about-grid,.skills-grid,.projects-grid,.contact-grid,.ref-grid{grid-template-columns:1fr}
-    footer p{font-size:14px}
-  }
-</style>
+    /* ─── HERO ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, var(--cream) 0%, #f9f3ed 40%, var(--bg) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 9rem 2rem 6rem; position: relative; overflow: hidden;
+    }
+    .hero-deco { position: absolute; pointer-events: none; }
 
-<nav>
-  <span class="nav-name">Yasmin Mwadi</span>
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--rose); font-weight: 400; margin-bottom: 1.5rem;
+      animation: fade-up 0.7s ease 0.1s both;
+    }
+    .hero-orn {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+      animation: fade-up 0.7s ease 0.2s both;
+    }
+    .hero-orn-line { width: 70px; height: 1px; background: var(--rose2); opacity: 0.55; }
+    .hero-orn-diamond {
+      width: 7px; height: 7px; background: var(--rose);
+      transform: rotate(45deg); flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: var(--serif); font-size: clamp(58px, 10.5vw, 100px);
+      font-weight: 300; font-style: italic; letter-spacing: 0.01em;
+      color: var(--ink); line-height: 1.06; margin-bottom: 1.25rem;
+      animation: fade-up 0.85s ease 0.3s both;
+    }
+    .hero-title {
+      font-size: clamp(12px, 1.8vw, 14px); letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--ink2); font-weight: 300; margin-bottom: 1.75rem;
+      animation: fade-up 0.7s ease 0.5s both;
+    }
+    .hero-rule {
+      width: 48px; height: 1px; background: var(--rose2); opacity: 0.65;
+      margin: 0 auto 2.25rem;
+      animation: fade-up 0.7s ease 0.62s both;
+    }
+    .hero-bio {
+      font-size: clamp(16px, 2.4vw, 19px); line-height: 2; color: var(--ink2);
+      max-width: 560px; font-weight: 300; margin-bottom: 3rem;
+      animation: fade-up 0.7s ease 0.75s both;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem;
+      animation: fade-up 0.7s ease 0.9s both;
+    }
+    .h-pill {
+      display: inline-flex; align-items: center; gap: 7px; font-size: 14px;
+      color: var(--ink2); padding: 9px 20px;
+      background: rgba(255,255,255,0.75); border: 1px solid var(--petal);
+      border-radius: 50px; transition: all 0.22s;
+    }
+    .h-pill:hover { background: var(--petal); border-color: var(--rose); color: var(--ink); }
+    .h-pill i { font-size: 16px; color: var(--rose); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink3);
+      animation: fade-up 0.7s ease 1.1s both;
+    }
+    .hero-scroll-bar {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, var(--rose2), transparent);
+      animation: scroll-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ─── SECTION FOUNDATIONS ─────────────────────────────── */
+    .section { padding: 7.5rem 2rem; }
+    .section--alt { background: var(--bg2); }
+    .wrap { max-width: 760px; margin: 0 auto; }
+    .wrap--wide { max-width: 1020px; margin: 0 auto; }
+
+    /* Section header */
+    .sh { margin-bottom: 4.5rem; }
+    .sh--c { text-align: center; }
+    .sh--c .sh-rule { margin-left: auto; margin-right: auto; }
+
+    .sh-tag {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--rose); font-weight: 400; margin-bottom: 0.9rem;
+    }
+    .sh-tag::before, .sh-tag::after {
+      content: ''; display: block; width: 20px; height: 1px;
+      background: var(--rose2); opacity: 0.7;
+    }
+    .sh-title {
+      font-family: var(--serif); font-size: clamp(36px, 5.5vw, 56px);
+      font-weight: 300; font-style: italic; color: var(--ink);
+      line-height: 1.12; margin-bottom: 1rem;
+    }
+    .sh-rule { width: 48px; height: 1px; background: var(--rose2); opacity: 0.65; margin-bottom: 1.5rem; }
+    .sh-lead { font-size: 17px; color: var(--ink2); line-height: 1.9; font-weight: 300; }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-quote {
+      font-family: var(--serif); font-size: clamp(21px, 3.2vw, 28px);
+      font-style: italic; font-weight: 300; color: var(--ink); line-height: 1.6;
+      border-left: 2px solid var(--rose); padding-left: 1.75rem; margin-bottom: 2rem;
+    }
+    .about-text { font-size: 16px; color: var(--ink2); line-height: 1.95; font-weight: 300; margin-bottom: 1.5rem; }
+    .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .ac {
+      background: var(--bg); border: 1px solid var(--petal); border-radius: 3px;
+      padding: 1.5rem 1.25rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ac:hover { border-color: var(--rose); transform: translateY(-2px); }
+    .ac-lbl { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); font-weight: 500; margin-bottom: 0.55rem; }
+    .ac-val { font-size: 15px; color: var(--ink2); line-height: 1.75; font-weight: 300; }
+
+    /* ─── SKILLS ──────────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+    .sg-title {
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rose); font-weight: 500; margin-bottom: 1.1rem;
+      padding-bottom: 0.8rem; border-bottom: 1px solid var(--petal);
+    }
+    .sg-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .sg-tag {
+      font-size: 14px; color: var(--ink2); background: var(--bg);
+      border: 1px solid var(--petal); border-radius: 2px;
+      padding: 7px 16px; font-weight: 300;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .sg-tag:hover { border-color: var(--rose); color: var(--rose); background: var(--cream); }
+
+    /* ─── PROJECTS ────────────────────────────────────────── */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .pc {
+      background: var(--bg); border: 1px solid var(--petal); border-radius: 3px;
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: transform 0.26s ease, box-shadow 0.26s ease;
+    }
+    .pc:hover { transform: translateY(-7px); box-shadow: 0 18px 52px rgba(184,112,101,0.17); }
+
+    .pc-visual {
+      height: 148px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .pc-visual i { font-size: 38px; color: rgba(255,255,255,0.5); position: relative; z-index: 1; }
+    .pc-domain {
+      position: absolute; bottom: 12px; left: 16px; z-index: 1;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85); font-weight: 400;
+    }
+    .pv1 { background: linear-gradient(135deg,#c17f6b,#d4a08e); }
+    .pv2 { background: linear-gradient(135deg,#8596ae,#aab9cc); }
+    .pv3 { background: linear-gradient(135deg,#b0a08e,#c8b9ad); }
+    .pv4 { background: linear-gradient(135deg,#7fa896,#a8c4b8); }
+    .pv5 { background: linear-gradient(135deg,#9e8eb0,#baadc8); }
+    .pv6 { background: linear-gradient(135deg,#b08ea0,#c8adba); }
+
+    .pc-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.65rem; }
+    .pc-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink); }
+    .pc-desc { font-size: 15px; color: var(--ink2); line-height: 1.78; font-weight: 300; flex: 1; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .pc-tag { font-size: 12px; color: var(--rose); background: var(--cream); padding: 3px 10px; border-radius: 2px; font-weight: 400; }
+    .pc-link {
+      display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rose); font-weight: 500; transition: gap 0.2s;
+    }
+    .pc-link:hover { gap: 10px; }
+    .pc-link i { font-size: 14px; }
+
+    /* ─── EXPERIENCE ──────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--petal); }
+    .job { margin-bottom: 3.75rem; position: relative; }
+    .job::before {
+      content: ''; position: absolute; left: -2.45rem; top: 7px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--rose); border: 3px solid var(--bg2);
+      animation: dot-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes dot-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(184,112,101,0.5)} 55%{box-shadow:0 0 0 10px rgba(184,112,101,0)} }
+    .job-period { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); font-weight: 500; margin-bottom: 0.4rem; }
+    .job-role { font-family: var(--serif); font-size: clamp(22px,3vw,27px); font-weight: 400; font-style: italic; color: var(--ink); margin-bottom: 0.2rem; }
+    .job-co { font-size: 14px; color: var(--ink3); font-weight: 300; margin-bottom: 1rem; letter-spacing: 0.04em; }
+    .job-ul { list-style: none; }
+    .job-ul li { font-size: 16px; color: var(--ink2); line-height: 1.9; font-weight: 300; padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; }
+    .job-ul li::before { content: '·'; position: absolute; left: 0; color: var(--rose); font-size: 20px; line-height: 1.55; }
+
+    /* ─── CONTACT ─────────────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin-bottom: 4.5rem; }
+    .cc {
+      background: var(--bg); border: 1px solid var(--petal); border-radius: 3px;
+      padding: 1.75rem 1.5rem; display: flex; align-items: center; gap: 1.25rem;
+      transition: border-color 0.22s, box-shadow 0.22s;
+    }
+    .cc:hover { border-color: var(--rose); box-shadow: 0 6px 28px rgba(184,112,101,0.13); }
+    .cc-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--cream); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cc-icon i { font-size: 21px; color: var(--rose); }
+    .cc-lbl { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); font-weight: 500; margin-bottom: 4px; }
+    .cc-val { font-size: 16px; color: var(--ink2); font-weight: 300; word-break: break-word; line-height: 1.5; }
+
+    /* ─── REFERENCES ──────────────────────────────────────── */
+    .ref-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin-top: 2rem; }
+    .rc {
+      background: var(--bg); border: 1px solid var(--petal); border-radius: 3px;
+      padding: 1.5rem; transition: border-color 0.22s;
+    }
+    .rc:hover { border-color: var(--rose); }
+    .rc-name { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+    .rc-role { font-size: 13px; color: var(--rose); font-weight: 400; margin-bottom: 8px; }
+    .rc-info { font-size: 14px; color: var(--ink3); font-weight: 300; line-height: 1.78; }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--ink); padding: 3.5rem 2rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .ft-name { font-family: var(--serif); font-size: 30px; font-style: italic; font-weight: 300; color: var(--petal); margin-bottom: 0.5rem; }
+    .ft-sub { font-size: 13px; color: var(--ink3); letter-spacing: 0.14em; font-weight: 300; }
+    .ft-sub span { color: var(--rose); }
+    footer .ft-deco { position: absolute; opacity: 0.12; pointer-events: none; }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fade-up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 920px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; height: 60px; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 11px; }
+      .section { padding: 5.5rem 1.5rem; }
+      .skills-grid, .projects-grid, .contact-grid, .ref-grid, .about-cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .nav { flex-wrap: wrap; height: auto; padding: 14px 1rem; gap: 10px; }
+      .nav-links { gap: 1rem; flex-wrap: wrap; }
+      .nav-links a { font-size: 12px; letter-spacing: 0.12em; }
+      .section { padding: 4rem 1.1rem; }
+      .hero { padding: 7rem 1.25rem 4rem; }
+      .hero-bio { font-size: 16px; line-height: 1.95; }
+      .h-pill { font-size: 14px; padding: 10px 18px; }
+      .h-pill i { font-size: 15px; }
+      .sh-title { font-size: 34px; }
+      .about-quote { font-size: 20px; }
+      .about-text, .ac-val { font-size: 15px; }
+      .sg-tag { font-size: 14px; padding: 8px 15px; }
+      .pc-name { font-size: 20px; }
+      .pc-desc { font-size: 15px; }
+      .job-ul li { font-size: 15px; line-height: 1.9; }
+      .job-co { font-size: 14px; }
+      .cc-val { font-size: 15px; }
+      .rc-name { font-size: 18px; }
+      .rc-role, .rc-info { font-size: 14px; }
+      .timeline { padding-left: 1.6rem; }
+      .job::before { left: -1.98rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV ──────────────────────────────────────────────────────────────── -->
+<nav class="nav" id="main-nav">
+  <div class="nav-logo">Yasmin <em>Mwadi</em></div>
   <div class="nav-links">
-    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<div class="hero">
-  <svg class="daisy-wrap" style="top:0;left:0;width:160px;height:160px" viewBox="0 0 160 160">
-    <g transform="translate(30,130)"><g transform="rotate(0)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><circle r="7" fill="#F5C8A0"/></g>
-    <g transform="translate(62,108)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><circle r="5" fill="#EAB070"/></g>
-    <g transform="translate(14,80)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(51.4)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(102.8)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(154.2)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(205.7)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(257.1)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(308.5)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><circle r="4" fill="#F5C8A0"/></g>
+<!-- HERO ─────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <!-- Corner daisies -->
+  <svg class="hero-deco" style="top:0;left:0;width:240px;height:240px;opacity:0.45" viewBox="0 0 240 240" aria-hidden="true">
+    <g transform="translate(45,195)"><g transform="rotate(0)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><circle r="9" fill="#F5C8A0"/></g>
+    <g transform="translate(90,150)"><g transform="rotate(0)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><circle r="6" fill="#EAB070"/></g>
   </svg>
-  <svg class="daisy-wrap" style="top:0;right:0;width:160px;height:160px" viewBox="0 0 160 160">
-    <g transform="translate(130,130)"><g transform="rotate(0)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-18" rx="5" ry="11" fill="#E8C5BE" opacity="0.9"/></g><circle r="7" fill="#F5C8A0"/></g>
-    <g transform="translate(98,108)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-13" rx="4" ry="8" fill="#EDD5CE" opacity="0.85"/></g><circle r="5" fill="#EAB070"/></g>
-    <g transform="translate(146,80)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(51.4)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(102.8)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(154.2)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(205.7)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(257.1)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><g transform="rotate(308.5)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#F5EAE7" opacity="0.8"/></g><circle r="4" fill="#F5C8A0"/></g>
+  <svg class="hero-deco" style="top:0;right:0;width:240px;height:240px;opacity:0.45" viewBox="0 0 240 240" aria-hidden="true">
+    <g transform="translate(195,195)"><g transform="rotate(0)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-28" rx="7" ry="16" fill="#EDD5CE"/></g><circle r="9" fill="#F5C8A0"/></g>
+    <g transform="translate(150,150)"><g transform="rotate(0)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-19" rx="5" ry="10" fill="#E8C5BE"/></g><circle r="6" fill="#EAB070"/></g>
   </svg>
-  <div class="hero-initials">YM</div>
-  <h1>Yasmin Mwadi</h1>
-  <p class="hero-title">Web &amp; Software Developer &nbsp;·&nbsp; Database &amp; Digital Specialist</p>
+
+  <p class="hero-eyebrow">Portfolio</p>
+  <div class="hero-orn">
+    <div class="hero-orn-line"></div>
+    <div class="hero-orn-diamond"></div>
+    <div class="hero-orn-line"></div>
+  </div>
+  <h1 class="hero-name">Yasmin Mwadi</h1>
+  <p class="hero-title">Web &amp; Software Developer &nbsp;·&nbsp; Database Specialist &nbsp;·&nbsp; Digital Strategist</p>
+  <div class="hero-rule"></div>
   <p class="hero-bio">A detail-driven developer with 5+ years of experience crafting full-stack applications, digital strategies, and data solutions. Analytical. Precise. Passionate about building things that work beautifully.</p>
-  <div class="hero-contacts">
-    <a href="mailto:ndokoyasmine@gmail.com" class="contact-pill"><i class="ti ti-mail" aria-hidden="true"></i>ndokoyasmine@gmail.com</a>
-    <a href="tel:+27837792005" class="contact-pill"><i class="ti ti-phone" aria-hidden="true"></i>+27 83 779 2005</a>
-    <a href="https://maps.google.com/?q=Bryanston,+Johannesburg,+South+Africa" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-map-pin" aria-hidden="true"></i>Bryanston, JHB</a>
-    <a href="https://www.linkedin.com/in/yasminmwadi" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>yasminmwadi</a>
-    <a href="https://github.com/YasminMwadi" target="_blank" rel="noopener noreferrer" class="contact-pill"><i class="ti ti-brand-github" aria-hidden="true"></i>YasminMwadi</a>
+  <div class="hero-pills">
+    <a href="mailto:ndokoyasmine@gmail.com" class="h-pill"><i class="ti ti-mail" aria-hidden="true"></i>ndokoyasmine@gmail.com</a>
+    <a href="tel:+27837792005" class="h-pill"><i class="ti ti-phone" aria-hidden="true"></i>+27 83 779 2005</a>
+    <a href="https://maps.google.com/?q=Bryanston,+Johannesburg,+South+Africa" target="_blank" rel="noopener noreferrer" class="h-pill"><i class="ti ti-map-pin" aria-hidden="true"></i>Bryanston, JHB</a>
+    <a href="https://www.linkedin.com/in/yasminmwadi" target="_blank" rel="noopener noreferrer" class="h-pill"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>yasminmwadi</a>
+    <a href="https://github.com/YasminMwadi" target="_blank" rel="noopener noreferrer" class="h-pill"><i class="ti ti-brand-github" aria-hidden="true"></i>YasminMwadi</a>
   </div>
-</div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero-scroll-bar"></div>
+  </div>
+</section>
 
-<section id="about" class="section-daisy">
-  <svg class="section-daisy-svg" style="right:0;top:20px;width:100px;height:100px" viewBox="0 0 100 100">
-    <g transform="translate(80,20)"><g transform="rotate(0)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(40)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(80)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(120)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(160)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(200)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(240)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(280)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><g transform="rotate(320)"><ellipse cx="0" cy="-14" rx="4" ry="9" fill="#E8C5BE"/></g><circle r="5" fill="#F5C8A0"/></g>
-  </svg>
-  <div class="container">
-    <p class="section-label">Who I am</p>
-    <h2 class="section-title">About me</h2>
-    <div class="section-rule"></div>
-    <p style="font-size:15px;color:var(--ink-mid);line-height:1.85;font-weight:300;margin-bottom:1.5rem">I build things that work beautifully — from database architectures to corporate websites to digital content strategies. My background spans software development, database administration, web development, and digital marketing, giving me a rare full-picture perspective on how technology and communication intersect.</p>
+<!-- ABOUT ────────────────────────────────────────────────────────────── -->
+<section class="section" id="about">
+  <div class="wrap--wide">
     <div class="about-grid">
-      <div class="about-card"><p class="about-card-label">Education</p><p class="about-card-val">Adv. Diploma, Computer Science<br>National Diploma, Software Development<br><em style="font-size:14px">Tshwane University of Technology</em></p></div>
-      <div class="about-card"><p class="about-card-label">Languages</p><p class="about-card-val">English — Fluent<br>French — Fluent</p></div>
-      <div class="about-card"><p class="about-card-label">Based in</p><p class="about-card-val">Bryanston, Johannesburg<br>South Africa<br><em style="font-size:14px">Open to remote &amp; relocation</em></p></div>
-      <div class="about-card"><p class="about-card-label">Core strengths</p><p class="about-card-val">Agile / SDLC &nbsp;·&nbsp; Problem solving<br>Team collaboration<br>Data security &amp; compliance</p></div>
+
+      <div>
+        <div class="sh">
+          <div class="sh-tag">Who I am</div>
+          <h2 class="sh-title">About<br>Me</h2>
+          <div class="sh-rule"></div>
+        </div>
+        <blockquote class="about-quote">Building things that work beautifully — from database architectures to corporate websites.</blockquote>
+        <p class="about-text">My background spans software development, database administration, web development, and digital marketing — giving me a rare full-picture perspective on how technology and communication intersect.</p>
+        <p class="about-text">I bring analytical precision to every project, whether it's designing scalable schemas, crafting pixel-perfect interfaces, or growing a brand's digital presence from scratch.</p>
+      </div>
+
+      <div class="about-cards">
+        <div class="ac reveal">
+          <p class="ac-lbl">Education</p>
+          <p class="ac-val">Adv. Diploma, Computer Science<br>National Diploma, Software Development<br><em style="font-size:14px;color:var(--ink3)">Tshwane University of Technology</em></p>
+        </div>
+        <div class="ac reveal">
+          <p class="ac-lbl">Languages</p>
+          <p class="ac-val">English — Fluent<br>French — Fluent</p>
+        </div>
+        <div class="ac reveal">
+          <p class="ac-lbl">Based in</p>
+          <p class="ac-val">Bryanston, Johannesburg<br>South Africa<br><em style="font-size:14px;color:var(--ink3)">Open to remote &amp; relocation</em></p>
+        </div>
+        <div class="ac reveal">
+          <p class="ac-lbl">Core strengths</p>
+          <p class="ac-val">Agile / SDLC &nbsp;·&nbsp; Problem solving<br>Team collaboration<br>Data security &amp; compliance</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="skills" style="background:var(--ivory-dk)" class="section-daisy">
-  <svg class="section-daisy-svg" style="left:0;bottom:10px;width:90px;height:90px" viewBox="0 0 90 90">
-    <g transform="translate(10,70)"><g transform="rotate(0)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(45)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(90)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(135)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(225)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(270)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><g transform="rotate(315)"><ellipse cx="0" cy="-12" rx="3" ry="8" fill="#EDD5CE"/></g><circle r="4" fill="#EAB070"/></g>
-  </svg>
-  <div class="container">
-    <p class="section-label">What I know</p>
-    <h2 class="section-title">Skills</h2>
-    <div class="section-rule"></div>
+<!-- SKILLS ───────────────────────────────────────────────────────────── -->
+<section class="section section--alt" id="skills">
+  <div class="wrap">
+    <div class="sh sh--c">
+      <div class="sh-tag">What I know</div>
+      <h2 class="sh-title">Skills</h2>
+      <div class="sh-rule"></div>
+    </div>
     <div class="skills-grid">
-      <div class="skill-group"><p class="skill-group-title">Languages</p><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">PHP</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PL/SQL</span><span class="skill-tag">Java</span></div>
-      <div class="skill-group"><p class="skill-group-title">Frameworks</p><span class="skill-tag">Angular</span><span class="skill-tag">Node.js</span><span class="skill-tag">Laravel</span><span class="skill-tag">Django</span><span class="skill-tag">Ionic</span></div>
-      <div class="skill-group"><p class="skill-group-title">Databases &amp; Cloud</p><span class="skill-tag">MySQL</span><span class="skill-tag">Firebase</span><span class="skill-tag">SQL Server</span><span class="skill-tag">Azure</span><span class="skill-tag">AWS</span><span class="skill-tag">GitHub</span></div>
-      <div class="skill-group"><p class="skill-group-title">Analytics &amp; Digital</p><span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span><span class="skill-tag">SEO</span><span class="skill-tag">WordPress</span><span class="skill-tag">RESTful APIs</span><span class="skill-tag">Social strategy</span></div>
+      <div class="reveal">
+        <p class="sg-title">Languages</p>
+        <div class="sg-tags">
+          <span class="sg-tag">HTML5</span><span class="sg-tag">CSS3</span><span class="sg-tag">Tailwind CSS</span><span class="sg-tag">JavaScript</span><span class="sg-tag">TypeScript</span><span class="sg-tag">PHP</span><span class="sg-tag">Python</span><span class="sg-tag">SQL</span><span class="sg-tag">PL/SQL</span><span class="sg-tag">Java</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="sg-title">Frameworks</p>
+        <div class="sg-tags">
+          <span class="sg-tag">Angular</span><span class="sg-tag">Node.js</span><span class="sg-tag">Laravel</span><span class="sg-tag">Django</span><span class="sg-tag">Ionic</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="sg-title">Databases &amp; Cloud</p>
+        <div class="sg-tags">
+          <span class="sg-tag">MySQL</span><span class="sg-tag">Firebase</span><span class="sg-tag">SQL Server</span><span class="sg-tag">Azure</span><span class="sg-tag">AWS</span><span class="sg-tag">GitHub</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="sg-title">Analytics &amp; Digital</p>
+        <div class="sg-tags">
+          <span class="sg-tag">Power BI</span><span class="sg-tag">Tableau</span><span class="sg-tag">SEO</span><span class="sg-tag">WordPress</span><span class="sg-tag">RESTful APIs</span><span class="sg-tag">Social strategy</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="projects" class="section-daisy">
-  <svg class="section-daisy-svg" style="right:0;top:30px;width:110px;height:110px" viewBox="0 0 110 110">
-    <g transform="translate(90,25)"><g transform="rotate(0)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(36)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(72)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(108)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(144)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(216)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(252)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(288)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><g transform="rotate(324)"><ellipse cx="0" cy="-15" rx="4" ry="10" fill="#E8C5BE"/></g><circle r="6" fill="#F5C8A0"/></g>
-    <g transform="translate(65,65)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#EDD5CE"/></g><circle r="4" fill="#EAB070"/></g>
-  </svg>
-  <div class="container">
-    <p class="section-label">What I have built</p>
-    <h2 class="section-title">Projects</h2>
-    <div class="section-rule"></div>
+<!-- PROJECTS ─────────────────────────────────────────────────────────── -->
+<section class="section" id="projects">
+  <div class="wrap--wide">
+    <div class="sh sh--c">
+      <div class="sh-tag">What I have built</div>
+      <h2 class="sh-title">Projects</h2>
+      <div class="sh-rule"></div>
+    </div>
     <div class="projects-grid">
-      <div class="project-card"><div class="project-preview"><i class="ti ti-building-skyscraper" aria-hidden="true"></i><span class="project-domain">geluxsarl.com</span></div><div class="project-body"><p class="project-name">Gelux SARL</p><p class="project-desc">Corporate website built end-to-end — SEO optimisation, content strategy, and digital presence management.</p><div class="project-tags"><span class="project-tag">WordPress</span><span class="project-tag">SEO</span><span class="project-tag">CMS</span></div><a class="project-link" href="https://geluxsarl.com" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
-      <div class="project-card"><div class="project-preview"><i class="ti ti-cake" aria-hidden="true"></i><span class="project-domain">cakebyamz.co.za</span></div><div class="project-body"><p class="project-name">Cake by Amz</p><p class="project-desc">Elegant e-commerce website for a bespoke cake brand — visual-first design with seamless customer enquiries.</p><div class="project-tags"><span class="project-tag">E-commerce</span><span class="project-tag">WordPress</span><span class="project-tag">UX</span></div><a class="project-link" href="https://cakebyamz.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
-      <div class="project-card"><div class="project-preview"><i class="ti ti-trophy" aria-hidden="true"></i><span class="project-domain">ttsport.co.za</span></div><div class="project-body"><p class="project-name">TT Sport</p><p class="project-desc">Sports brand website with product listings and optimised performance for mobile and desktop.</p><div class="project-tags"><span class="project-tag">Web Dev</span><span class="project-tag">Responsive</span><span class="project-tag">SEO</span></div><a class="project-link" href="https://ttsport.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
-      <div class="project-card"><div class="project-preview"><i class="ti ti-home-2" aria-hidden="true"></i><span class="project-domain">splitnest.com</span></div><div class="project-body"><p class="project-name">SplitNest</p><p class="project-desc">Shared living platform connecting people looking for rooms and housemates with smart listing features.</p><div class="project-tags"><span class="project-tag">Angular</span><span class="project-tag">Node.js</span><span class="project-tag">UX</span></div><a class="project-link" href="https://splitnest.com" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
-      <div class="project-card"><div class="project-preview"><i class="ti ti-sofa" aria-hidden="true"></i><span class="project-domain">lavehome.co.za</span></div><div class="project-body"><p class="project-name">Lave Home</p><p class="project-desc">Home décor brand site with elegant visuals and a smooth shopping experience for design-conscious audiences.</p><div class="project-tags"><span class="project-tag">E-commerce</span><span class="project-tag">WordPress</span><span class="project-tag">Design</span></div><a class="project-link" href="https://lavehome.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
-      <div class="project-card"><div class="project-preview"><i class="ti ti-exchange" aria-hidden="true"></i><span class="project-domain">izozo.co.za</span></div><div class="project-body"><p class="project-name">Izozo</p><p class="project-desc">Comparison and marketplace platform enabling users to browse and connect with service providers.</p><div class="project-tags"><span class="project-tag">Platform</span><span class="project-tag">PHP</span><span class="project-tag">MySQL</span></div><a class="project-link" href="https://izozo.co.za" target="_blank"><i class="ti ti-external-link"></i>Visit site</a></div></div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv1"><i class="ti ti-building-skyscraper" aria-hidden="true"></i><span class="pc-domain">geluxsarl.com</span></div>
+        <div class="pc-body">
+          <p class="pc-name">Gelux SARL</p>
+          <p class="pc-desc">Corporate website built end-to-end — SEO optimisation, content strategy, and digital presence management.</p>
+          <div class="pc-tags"><span class="pc-tag">WordPress</span><span class="pc-tag">SEO</span><span class="pc-tag">CMS</span></div>
+          <a class="pc-link" href="https://geluxsarl.com" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv2"><i class="ti ti-cake" aria-hidden="true"></i><span class="pc-domain">cakebyamz.co.za</span></div>
+        <div class="pc-body">
+          <p class="pc-name">Cake by Amz</p>
+          <p class="pc-desc">Elegant e-commerce website for a bespoke cake brand — visual-first design with seamless customer enquiries.</p>
+          <div class="pc-tags"><span class="pc-tag">E-commerce</span><span class="pc-tag">WordPress</span><span class="pc-tag">UX</span></div>
+          <a class="pc-link" href="https://cakebyamz.co.za" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv3"><i class="ti ti-trophy" aria-hidden="true"></i><span class="pc-domain">ttsport.co.za</span></div>
+        <div class="pc-body">
+          <p class="pc-name">TT Sport</p>
+          <p class="pc-desc">Sports brand website with product listings and optimised performance for mobile and desktop.</p>
+          <div class="pc-tags"><span class="pc-tag">Web Dev</span><span class="pc-tag">Responsive</span><span class="pc-tag">SEO</span></div>
+          <a class="pc-link" href="https://ttsport.co.za" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv4"><i class="ti ti-home-2" aria-hidden="true"></i><span class="pc-domain">splitnest.com</span></div>
+        <div class="pc-body">
+          <p class="pc-name">SplitNest</p>
+          <p class="pc-desc">Shared living platform connecting people looking for rooms and housemates with smart listing features.</p>
+          <div class="pc-tags"><span class="pc-tag">Angular</span><span class="pc-tag">Node.js</span><span class="pc-tag">UX</span></div>
+          <a class="pc-link" href="https://splitnest.com" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv5"><i class="ti ti-sofa" aria-hidden="true"></i><span class="pc-domain">lavehome.co.za</span></div>
+        <div class="pc-body">
+          <p class="pc-name">Lave Home</p>
+          <p class="pc-desc">Home décor brand site with elegant visuals and a smooth shopping experience for design-conscious audiences.</p>
+          <div class="pc-tags"><span class="pc-tag">E-commerce</span><span class="pc-tag">WordPress</span><span class="pc-tag">Design</span></div>
+          <a class="pc-link" href="https://lavehome.co.za" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-visual pv6"><i class="ti ti-exchange" aria-hidden="true"></i><span class="pc-domain">izozo.co.za</span></div>
+        <div class="pc-body">
+          <p class="pc-name">Izozo</p>
+          <p class="pc-desc">Comparison and marketplace platform enabling users to browse and connect with service providers.</p>
+          <div class="pc-tags"><span class="pc-tag">Platform</span><span class="pc-tag">PHP</span><span class="pc-tag">MySQL</span></div>
+          <a class="pc-link" href="https://izozo.co.za" target="_blank" rel="noopener">Visit site <i class="ti ti-arrow-right"></i></a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="experience" style="background:var(--ivory-dk)">
-  <div class="container">
-    <p class="section-label">What I have done</p>
-    <h2 class="section-title">Experience</h2>
-    <div class="section-rule"></div>
+<!-- EXPERIENCE ───────────────────────────────────────────────────────── -->
+<section class="section section--alt" id="experience">
+  <div class="wrap">
+    <div class="sh">
+      <div class="sh-tag">What I have done</div>
+      <h2 class="sh-title">Experience</h2>
+      <div class="sh-rule"></div>
+    </div>
     <div class="timeline">
-      <div class="job"><div class="job-dot"></div><p class="job-period">Sep 2025 – Present</p><p class="job-role">Webmaster &amp; Digital Content Specialist</p><p class="job-company">Gelux SARL &nbsp;·&nbsp; Lubumbashi, DRC</p><ul class="job-bullets"><li>Led end-to-end development and management of corporate website</li><li>Built company digital presence across social platforms from scratch</li><li>Executed content strategy — blog &amp; social — growing audience engagement</li><li>Optimised for SEO and UX, improving rankings and site performance</li><li>Produced strategic reports from web and social analytics</li></ul></div>
-      <div class="job"><div class="job-dot"></div><p class="job-period">Jan 2024 – Dec 2024</p><p class="job-role">Database Administrator</p><p class="job-company">MG Optimal Systems &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Administered production databases maintaining high availability</li><li>Designed schemas and data models for evolving application requirements</li><li>Improved query performance through index tuning and health monitoring</li></ul></div>
-      <div class="job"><div class="job-dot"></div><p class="job-period">Jul 2022 – Jul 2023</p><p class="job-role">Web Developer</p><p class="job-company">BMB Studio &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Built data-driven applications using PHP, MySQL, and JavaScript</li><li>Integrated and maintained RESTful APIs</li><li>Delivered Power BI dashboards for business decision support</li></ul></div>
-      <div class="job"><div class="job-dot"></div><p class="job-period">Jan 2022 – Jun 2022</p><p class="job-role">Software Developer</p><p class="job-company">Junixia &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Developed database structures using SQL, Java, and Python</li><li>Contributed to data analytics and insights extraction</li></ul></div>
-      <div class="job"><div class="job-dot"></div><p class="job-period">Feb 2021 – Dec 2021</p><p class="job-role">Web &amp; Software Developer</p><p class="job-company">Spiral8 Studio &nbsp;·&nbsp; Pretoria, SA</p><ul class="job-bullets"><li>Designed Power BI &amp; MySQL dashboards for real-time BI</li><li>Built and optimised large-scale database solutions</li><li>Collaborated cross-functionally on system efficiency improvements</li></ul></div>
+
+      <div class="job reveal">
+        <p class="job-period">Sep 2025 – Present</p>
+        <p class="job-role">Webmaster &amp; Digital Content Specialist</p>
+        <p class="job-co">Gelux SARL &nbsp;·&nbsp; Lubumbashi, DRC</p>
+        <ul class="job-ul">
+          <li>Led end-to-end development and management of corporate website</li>
+          <li>Built company digital presence across social platforms from scratch</li>
+          <li>Executed content strategy — blog &amp; social — growing audience engagement</li>
+          <li>Optimised for SEO and UX, improving rankings and site performance</li>
+          <li>Produced strategic reports from web and social analytics</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <p class="job-period">Jan 2024 – Dec 2024</p>
+        <p class="job-role">Database Administrator</p>
+        <p class="job-co">MG Optimal Systems &nbsp;·&nbsp; Pretoria, SA</p>
+        <ul class="job-ul">
+          <li>Administered production databases maintaining high availability</li>
+          <li>Designed schemas and data models for evolving application requirements</li>
+          <li>Improved query performance through index tuning and health monitoring</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <p class="job-period">Jul 2022 – Jul 2023</p>
+        <p class="job-role">Web Developer</p>
+        <p class="job-co">BMB Studio &nbsp;·&nbsp; Pretoria, SA</p>
+        <ul class="job-ul">
+          <li>Built data-driven applications using PHP, MySQL, and JavaScript</li>
+          <li>Integrated and maintained RESTful APIs</li>
+          <li>Delivered Power BI dashboards for business decision support</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <p class="job-period">Jan 2022 – Jun 2022</p>
+        <p class="job-role">Software Developer</p>
+        <p class="job-co">Junixia &nbsp;·&nbsp; Pretoria, SA</p>
+        <ul class="job-ul">
+          <li>Developed database structures using SQL, Java, and Python</li>
+          <li>Contributed to data analytics and insights extraction</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <p class="job-period">Feb 2021 – Dec 2021</p>
+        <p class="job-role">Web &amp; Software Developer</p>
+        <p class="job-co">Spiral8 Studio &nbsp;·&nbsp; Pretoria, SA</p>
+        <ul class="job-ul">
+          <li>Designed Power BI &amp; MySQL dashboards for real-time BI</li>
+          <li>Built and optimised large-scale database solutions</li>
+          <li>Collaborated cross-functionally on system efficiency improvements</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="contact" style="background:var(--ivory)" class="section-daisy">
-  <svg class="section-daisy-svg" style="left:0;top:20px;width:90px;height:90px" viewBox="0 0 90 90">
-    <g transform="translate(10,50)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(40)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(80)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(120)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(160)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(200)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(240)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(280)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><g transform="rotate(320)"><ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="#E8C5BE"/></g><circle r="5" fill="#F5C8A0"/></g>
-  </svg>
-  <div class="container">
-    <p class="section-label">Get in touch</p>
-    <h2 class="section-title">Contact</h2>
-    <div class="section-rule"></div>
+<!-- CONTACT ──────────────────────────────────────────────────────────── -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="sh sh--c">
+      <div class="sh-tag">Get in touch</div>
+      <h2 class="sh-title">Contact</h2>
+      <div class="sh-rule"></div>
+    </div>
+
     <div class="contact-grid">
-      <div class="contact-card"><div class="contact-icon"><i class="ti ti-mail" aria-hidden="true"></i></div><div><p class="contact-label">Email</p><p class="contact-val">ndokoyasmine@gmail.com</p></div></div>
-      <div class="contact-card"><div class="contact-icon"><i class="ti ti-phone" aria-hidden="true"></i></div><div><p class="contact-label">Phone</p><p class="contact-val">+27 83 779 2005</p></div></div>
-      <div class="contact-card"><div class="contact-icon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div><div><p class="contact-label">LinkedIn</p><p class="contact-val">linkedin.com/in/yasminmwadi</p></div></div>
-      <div class="contact-card"><div class="contact-icon"><i class="ti ti-brand-github" aria-hidden="true"></i></div><div><p class="contact-label">GitHub</p><p class="contact-val">github.com/YasminMwadi</p></div></div>
+      <div class="cc reveal"><div class="cc-icon"><i class="ti ti-mail" aria-hidden="true"></i></div><div><p class="cc-lbl">Email</p><p class="cc-val">ndokoyasmine@gmail.com</p></div></div>
+      <div class="cc reveal"><div class="cc-icon"><i class="ti ti-phone" aria-hidden="true"></i></div><div><p class="cc-lbl">Phone</p><p class="cc-val">+27 83 779 2005</p></div></div>
+      <div class="cc reveal"><div class="cc-icon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div><div><p class="cc-lbl">LinkedIn</p><p class="cc-val">linkedin.com/in/yasminmwadi</p></div></div>
+      <div class="cc reveal"><div class="cc-icon"><i class="ti ti-brand-github" aria-hidden="true"></i></div><div><p class="cc-lbl">GitHub</p><p class="cc-val">github.com/YasminMwadi</p></div></div>
     </div>
-    <p class="section-label" style="margin-top:3rem">References</p>
-    <div class="section-rule" style="margin-top:0.6rem"></div>
+
+    <div style="margin-top:3.5rem">
+      <div class="sh-tag" style="margin-bottom:0.75rem">References</div>
+      <div class="sh-rule"></div>
+    </div>
     <div class="ref-grid">
-      <div class="ref-card"><p class="ref-name">Rene Monzambe</p><p class="ref-role">Chairman — GELUX SARL</p><p class="ref-contact">+243 81 444 0117<br>rene.monzambe@gelux.cd</p></div>
-      <div class="ref-card"><p class="ref-name">Lindikhaya N. Mabena</p><p class="ref-role">Managing Director — Spiral8 Studio</p><p class="ref-contact">+27 71 269 9640<br>info@spiral8studio.co.za</p></div>
-      <div class="ref-card"><p class="ref-name">Jean Nestor M. Dahj</p><p class="ref-role">Technical Director — Junixia</p><p class="ref-contact">+27 71 387 6255<br>info@junixia.com</p></div>
-      <div class="ref-card"><p class="ref-name">Benny Mala</p><p class="ref-role">Managing Director — BMBStudio</p><p class="ref-contact">+27 12 343 0908<br>info@bmbstudio.co.za</p></div>
-      <div class="ref-card"><p class="ref-name">Giovanni Monzambe</p><p class="ref-role">Managing Director — MG Optimal Systems</p><p class="ref-contact">+27 81 574 9975<br>info@mg-optimalsystems.co.za</p></div>
+      <div class="rc reveal"><p class="rc-name">Rene Monzambe</p><p class="rc-role">Chairman — GELUX SARL</p><p class="rc-info">+243 81 444 0117<br>rene.monzambe@gelux.cd</p></div>
+      <div class="rc reveal"><p class="rc-name">Lindikhaya N. Mabena</p><p class="rc-role">Managing Director — Spiral8 Studio</p><p class="rc-info">+27 71 269 9640<br>info@spiral8studio.co.za</p></div>
+      <div class="rc reveal"><p class="rc-name">Jean Nestor M. Dahj</p><p class="rc-role">Technical Director — Junixia</p><p class="rc-info">+27 71 387 6255<br>info@junixia.com</p></div>
+      <div class="rc reveal"><p class="rc-name">Benny Mala</p><p class="rc-role">Managing Director — BMBStudio</p><p class="rc-info">+27 12 343 0908<br>info@bmbstudio.co.za</p></div>
+      <div class="rc reveal"><p class="rc-name">Giovanni Monzambe</p><p class="rc-role">Managing Director — MG Optimal Systems</p><p class="rc-info">+27 81 574 9975<br>info@mg-optimalsystems.co.za</p></div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER ───────────────────────────────────────────────────────────── -->
 <footer>
-  <svg style="position:absolute;left:10px;bottom:5px;width:60px;height:60px;opacity:0.3" viewBox="0 0 60 60">
-    <g transform="translate(15,45)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><circle r="4" fill="#F5C8A0"/></g>
+  <svg class="ft-deco" style="left:20px;bottom:10px;width:80px;height:80px" viewBox="0 0 80 80" aria-hidden="true">
+    <g transform="translate(20,60)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><circle r="4.5" fill="#F5C8A0"/></g>
   </svg>
-  <svg style="position:absolute;right:10px;bottom:5px;width:60px;height:60px;opacity:0.3" viewBox="0 0 60 60">
-    <g transform="translate(45,45)"><g transform="rotate(0)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="#E8C5BE"/></g><circle r="4" fill="#F5C8A0"/></g>
+  <svg class="ft-deco" style="right:20px;bottom:10px;width:80px;height:80px" viewBox="0 0 80 80" aria-hidden="true">
+    <g transform="translate(60,60)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(51)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(102)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(153)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(204)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(255)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><g transform="rotate(306)"><ellipse cx="0" cy="-13" rx="3.5" ry="8" fill="#EDD5CE"/></g><circle r="4.5" fill="#F5C8A0"/></g>
   </svg>
-  <p>Yasmin Mwadi &nbsp;<span>·</span>&nbsp; Web &amp; Software Developer &nbsp;<span>·</span>&nbsp; Bryanston, Johannesburg</p>
+  <p class="ft-name">Yasmin Mwadi</p>
+  <p class="ft-sub">Web &amp; Software Developer &nbsp;<span>·</span>&nbsp; Bryanston, Johannesburg</p>
 </footer>
 
 <script>
-  /* ── 1. Spin every daisy flower with SVG animateTransform ──────────
-     additive="sum" stacks on top of the existing translate() so the
-     flowers stay in position while rotating around their own centre.  */
-  const DURS = [13, 9, 6, 15, 10, 8, 12, 7];
-  document.querySelectorAll(
-    '.daisy-wrap g[transform^="translate"], ' +
-    '.section-daisy-svg g[transform^="translate"], ' +
-    'footer svg g[transform^="translate"]'
-  ).forEach((g, i) => {
+  /* Nav shadow on scroll */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* Scroll reveal */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4 * 0.09) + 's';
+    ro.observe(el);
+  });
+
+  /* Daisy spin */
+  const DURS = [14, 9, 7, 16, 11];
+  document.querySelectorAll('.hero-deco g[transform^="translate"]').forEach((g, i) => {
     const a = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
     a.setAttribute('attributeName', 'transform');
     a.setAttribute('attributeType', 'XML');
     a.setAttribute('type', 'rotate');
     a.setAttribute('from', '0');
-    a.setAttribute('to',   i % 3 === 1 ? '-360' : '360');   // alternate direction
-    a.setAttribute('dur',  DURS[i % DURS.length] + 's');
+    a.setAttribute('to', i % 2 === 0 ? '360' : '-360');
+    a.setAttribute('dur', DURS[i % DURS.length] + 's');
     a.setAttribute('repeatCount', 'indefinite');
     a.setAttribute('additive', 'sum');
     g.appendChild(a);
   });
-
-  /* ── 2. Offset the float animations so daisies don't move in sync ── */
-  document.querySelectorAll('.daisy-wrap').forEach((el, i) => {
-    el.style.animationDelay = (i * -3.2) + 's';
-    if (i % 2 === 1) el.style.animationName = 'd-float-r';
-  });
-  document.querySelectorAll('.section-daisy-svg').forEach((el, i) => {
-    el.style.animationDelay = (i * -2.1) + 's';
-    if (i % 2 === 1) { el.style.animationName = 'd-float-r'; el.style.animationDuration = '7s'; }
-  });
-  document.querySelectorAll('footer svg').forEach((el, i) => {
-    el.style.animationDelay = (i * -4.5) + 's';
-    if (i % 2 === 1) el.style.animationName = 'd-float-r';
-  });
-
-  /* ── 3. Scroll-reveal with per-group stagger ───────────────────── */
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
-    });
-  }, { threshold: 0.10 });
-
-  ['.about-card', '.skill-group', '.project-card', '.contact-card', '.ref-card'].forEach(sel => {
-    document.querySelectorAll(sel).forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = (i % 4 * 0.10) + 's';
-      ro.observe(el);
-    });
-  });
-  document.querySelectorAll('.job').forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.09) + 's';
-    ro.observe(el);
-  });
 </script>
+</body>
+</html>
